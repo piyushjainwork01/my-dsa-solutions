@@ -24,8 +24,8 @@ The element 1 occurs at the indices 0 and 3.
 
     public boolean containsDuplicate(int[] nums) {
         Set<Integer> set = new HashSet<>();
-        for (int i = 0; i < nums.length; i++) {
-            if (!set.add(nums[i])) {
+        for (int num : nums) {
+            if (!set.add(num)) {
                 return true;
             }
         }
@@ -122,9 +122,86 @@ The element 1 occurs at the indices 0 and 3.
         return new int[]{-1, -1};
     }
 
+    // Work like everyone is watching you let's do this buddy
+
+    // Isomorphic Strings
+
+    /*Given two strings s and t, determine if they are isomorphic.
+    Two strings s and t are isomorphic if the characters in s can be replaced to get t.
+    All occurrences of a character must be replaced with another character while preserving
+    the order of characters. No two characters may map to the same character, but a character may map to itself.*/
 
 
+    public boolean isIsomorphic(String s, String t) {
 
+        if (s.length() != t.length()) return false;
+        Map<Character, Character> stot = new HashMap<>();
+        Map<Character, Character> ttos = new HashMap<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            char sc = s.charAt(i);
+            char tc = t.charAt(i);
+            if (stot.containsKey(sc)) {
+                if (stot.get(sc) != tc) {
+                    return false;
+                }
+            } else {
+                stot.put(sc, tc);
+            }
+        }
+        for (int i = 0; i < t.length(); i++) {
+            char sc = s.charAt(i);
+            char tc = t.charAt(i);
+            if (ttos.containsKey(tc)) {
+                if (ttos.get(tc) != sc) {
+                    return false;
+                }
+            } else {
+                ttos.put(tc, sc);
+            }
+        }
+        return true;
+    }
+
+    public int firstUniqChar(String s) {
+        // ye wala question mere se hua nhi tha ek bar mai so i am going to solve this again
+
+        Map<Character,Integer> map = new HashMap<>();
+        char[] arr = s.toCharArray();
+        for(int i =0;i<arr.length;i++){
+            map.put(arr[i],map.getOrDefault(arr[i],0)+1);
+        }
+        for(int i =0;i<arr.length;i++){
+            if(map.get(arr[i])== 1){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // Happy Number.
+
+
+    public boolean isHappy(int n) {
+
+        HashSet<Integer> seen = new HashSet<>();
+        while(n != 1){
+            if(seen.contains(n)){
+                return false;
+            }
+            seen.add(n);
+            int sumOfSquare = 0;
+            while(n >0){
+                int ld = n %10;
+                sumOfSquare += ld*ld;
+                n = n / 10;
+            }
+            n = sumOfSquare;
+
+
+        }
+        return true;
+    }
 
 
 }
