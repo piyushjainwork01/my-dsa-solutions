@@ -198,4 +198,36 @@ public class SlidingWindowHashMap {
      * 4. CHECK frequency:
      *    map.get(char)  // Count of specific element
      */
+
+
+    public long maximumSubarraySum(int[] nums, int k) {
+
+        if (k == 0) return 0;
+        Map<Integer, Integer> freq = new HashMap<>();
+        long sum = 0, max = 0;
+        int left = 0;
+
+        for (int right = 0; right < nums.length; right++) {
+
+            // add right element
+            freq.put(nums[right], freq.getOrDefault(nums[right], 0) + 1);
+            sum += nums[right];
+
+            if(right - left +1 == k ){
+
+                if(freq.size() == k){
+                    max = Math.max(max, sum);
+                }
+                freq.put(nums[left], freq.get(nums[left]) - 1);
+                if (freq.get(nums[left]) == 0)freq.remove(nums[left]);
+
+                sum -= nums[left];
+                left++;
+            }
+
+
+        }
+        return max;
+
+    }
 }
